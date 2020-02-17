@@ -1,0 +1,15 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: crazy-max/ghaction-docker-buildx@v1.0.5
+    - name: test
+      run: doceker version
+
