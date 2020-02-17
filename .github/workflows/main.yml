@@ -9,34 +9,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: setup docker images
-      uses: docker-practice/actions-setup-docker@master
-
-    - name: login docker
-      uses: Azure/docker-login@v1
-      with:
-        # Container registry username
-        username: ${{ secrets.DOCKER_USERNAME }}
-        # Container registry password
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        # Container registry server url
-        login-server: https://hub.docker.com：5000 
     -
       name: Build node:latest
-      run: |
-        docker buildx build \
-          --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x \
-          --tag banknight/node:latest \
-          --push \
-          --file ./node/latest/Dockerfile ./node/latest
-    -
-      name: Build node:slim
-      run: |
-        docker buildx build \
-          --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x \
-          --tag banknight/node:slim \
-          --push \
-          --file ./node/slim/Dockerfile ./node/slim
-    
-   
-
+      uses: ilteoood/docker_buildx@master
+      with: 
+        publish: true
+        imageName: banknight/node
+        tag: latest
+        dockerFile: ./node/latest/Dockerfile
+        dockerHubUser: ${{ secrets.DOCKER_USERNAME }}
+        dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }}
