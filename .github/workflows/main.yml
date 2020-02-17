@@ -8,14 +8,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    -
-      name: Build node:latest
+    - name: Checkout master
+      uses: actions/checkout@master
+    - name: Build and publish image
       uses: ilteoood/docker_buildx@master
-      with: 
+      with:
         publish: true
         imageName: banknight/node
-        tag: latest
+        platform: linux/amd64,linux/arm64,linux/arm/v7 # 你准备构建的镜像平台
+        tag: latest # 默认latest，可以针对平台，修改tag
         dockerFile: ./node/latest/Dockerfile
-        dockerHubUser: ${{ secrets.DOCKER_USERNAME }}
-        dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }}
+        dockerHubUser: ${{ secrets.DOCKER_USERNAME }} # docker hub userid
+        dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }} # docker hub password
