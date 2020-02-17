@@ -15,6 +15,16 @@ jobs:
     -
       name: Available platforms
       run: echo ${{ steps.buildx.outputs.platforms }}
+      
+    - name: Docker Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: ${{ secrets.DOCKER_USERNAME }}
+        # Container registry password
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        # Container registry server url
+        login-server: https://hub.docker.com
     -
       name: Build node:latest
       run: |
@@ -31,7 +41,4 @@ jobs:
           --tag banknight/node:slim \
           --push \
           --file ./node/slim/Dockerfile ./node/slim
-    -
-      name: Show Images
-      run: docker images           
 
