@@ -9,6 +9,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Docker Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: ${{ secrets.DOCKER_USERNAME }}
+        # Container registry password
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        # Container registry server url
+        login-server: https://hub.docker.com
     -
       id: buildx
       uses: crazy-max/ghaction-docker-buildx@v1.0.5      
@@ -21,6 +30,7 @@ jobs:
         docker buildx build \
           --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x \
           --tag banknight/node:latest \
+          --push \
           --file ./node/latest/Dockerfile ./node/latest
     -
       name: Build node:slim
@@ -28,5 +38,6 @@ jobs:
         docker buildx build \
           --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x \
           --tag banknight/node:slim \
+           --push \
           --file ./node/slim/Dockerfile ./node/slim
 
