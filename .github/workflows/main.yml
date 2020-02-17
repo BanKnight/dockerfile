@@ -9,30 +9,25 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    -
-      id: buildx
-      uses: crazy-max/ghaction-docker-buildx@v1.0.5      
-    -
-      name: Available platforms
-      run: echo ${{ steps.buildx.outputs.platforms }}
-      
-    - name: Docker Login
-      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} ${{ secrets.DOCKER_PASSWORD }}
     -
       name: Build node:latest
-      run: |
-        docker buildx build \
-          --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x \
-          --tag banknight/node:latest \
-          --push \
-          --file ./node/latest/Dockerfile ./node/latest
+      uses: zmingxie/docker_buildx@master
+      with:
+          publish: true
+          imageName: banknight/node
+          tag: latest
+          dockerFile: ./node/latest/Dockerfile
+          dockerHubUser: ${{secrets.DOCKER_USERNAME}}
+          dockerHubPassword: ${{secrets.DOCKER_PASSWORD}}
     -
       name: Build node:slim
-      run: |
-        docker buildx build \
-          --platform linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x \
-          --tag banknight/node:slim \
-          --push \
-          --file ./node/slim/Dockerfile ./node/slim
+      uses: zmingxie/docker_buildx@master
+      with:
+          publish: true
+          imageName: banknight/node
+          tag: slim
+          dockerFile: ./node/slim/Dockerfile
+          dockerHubUser: ${{secrets.DOCKER_USERNAME}}
+          dockerHubPassword: ${{secrets.DOCKER_PASSWORD}}    
+   
 
