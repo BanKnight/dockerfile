@@ -16,3 +16,13 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: 
         docker version && echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME}  --password-stdin
+    - name: Build and publish image
+      uses: ilteoood/docker_buildx@master
+      with:
+        publish: true
+        imageName: banknight/node
+        platform: linux/amd64,linux/arm64,linux/arm/v7 # 你准备构建的镜像平台
+        tag: latest # 默认latest，可以针对平台，修改tag
+        dockerFile: ./node/latest/Dockerfile
+        dockerHubUser: ${{ secrets.DOCKER_USERNAME }} # docker hub userid
+        dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }} # docker hub password
