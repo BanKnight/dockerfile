@@ -33,4 +33,4 @@ jobs:
         
         
     - name: Build
-      run: docker buildx build --help \ bash ./ipec-vpn-server/latest/build.sh ${{ secrets.DOCKER_USERNAME }}
+      run: bash ./ipec-vpn-server/latest/build.sh ${{ secrets.DOCKER_USERNAME }}
