@@ -29,5 +29,5 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: 
-        echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME}  --password-stdin && \
-        ./ipec-vpn-server/latest/build.sh
+        echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME}  --password-stdin 
+        sh ./ipec-vpn-server/latest/build.sh
