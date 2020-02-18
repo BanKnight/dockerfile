@@ -18,7 +18,7 @@ jobs:
       uses: ilteoood/docker_buildx@master
       with:
         publish: true
-        imageName: banknight/node
+        imageName:  ${{secrets.DOCKER_USERNAME}}/node
         platform: linux/amd64,linux/arm64,linux/arm/v7 # 你准备构建的镜像平台
         tag: latest
         dockerFile: ./node/latest/Dockerfile
@@ -28,7 +28,7 @@ jobs:
       uses: ilteoood/docker_buildx@master
       with:
         publish: true
-        imageName: banknight/node
+        imageName:  ${{secrets.DOCKER_USERNAME}}/node
         platform: linux/amd64,linux/arm64,linux/arm/v7 # 你准备构建的镜像平台
         tag: slim 
         dockerFile: ./node/slim/Dockerfile
