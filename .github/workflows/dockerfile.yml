@@ -5,8 +5,8 @@ on:
     branches:
       - master
     paths:
-      - '**/Dockerfile'
-      - './github/**'
+      - '**/*.Dockerfile'
+      - '**/dockerfile.yml'
 
 jobs:
   build:

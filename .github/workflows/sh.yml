@@ -5,8 +5,8 @@ on:
     branches:
       - master
     paths:
-      - '**/sh'
-      - './github/**'
+      - '**/*.sh'
+      - '**/sh.yml'
 
 jobs:
   build:
