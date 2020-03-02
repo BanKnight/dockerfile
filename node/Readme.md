@@ -4,3 +4,6 @@
 # node:slim
 只有nodejs运行时
 
+# mongo
+alpine版的mongo，非常小
+
