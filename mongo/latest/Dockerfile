@@ -1,6 +1,6 @@
 FROM alpine:3.9
 
-RUN apk add --no-cache mongodb && mongo --version
+RUN apk add --no-cache mongodb
 
 VOLUME /data/db
 EXPOSE 27017 28017
