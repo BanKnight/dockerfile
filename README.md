@@ -16,3 +16,6 @@
 
 ## 大小
 在dockerhub 上，是官方镜像的1/3大小
+
+# mongo
+使用 alpine:3.9 制作，大小（compressed size）约50m，相比官方（150m）体型更小
