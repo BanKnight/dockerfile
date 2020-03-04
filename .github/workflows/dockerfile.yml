@@ -34,5 +34,19 @@ jobs:
         dockerFile: ./node/slim/Dockerfile
         dockerHubUser: ${{ secrets.DOCKER_USERNAME }} # docker hub userid
         dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }} # docker hub password
-
+  code-server:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout master
+      uses: actions/checkout@master
+    - name: Build
+      uses: ilteoood/docker_buildx@master
+      with:
+        publish: true
+        imageName:  ${{secrets.DOCKER_USERNAME}}/code-server
+        platform: linux/amd64 # 你准备构建的镜像平台
+        tag: latest
+        dockerFile: ./code-server/latest/Dockerfile
+        dockerHubUser: ${{ secrets.DOCKER_USERNAME }} # docker hub userid
+        dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }} # docker hub password
               
