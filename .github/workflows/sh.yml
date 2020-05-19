@@ -51,3 +51,25 @@ jobs:
         
     - name: Build mongo
       run: bash ./mongo/latest/build.sh ${{ secrets.DOCKER_USERNAME }} 
+
+  clash:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout master
+      uses: actions/checkout@v2     
+    -
+      name: Set up Docker Buildx
+      id: buildx
+      uses: crazy-max/ghaction-docker-buildx@v1
+      with:
+        version: latest
+    -
+      name: Available platforms
+      run: echo ${{ steps.buildx.outputs.platforms }}
+
+    - name: Docker login
+      run: 
+        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }}  --password-stdin \
+        
+    - name: Build clash
+      run: bash ./clash/latest/build.sh ${{ secrets.DOCKER_USERNAME }} 
