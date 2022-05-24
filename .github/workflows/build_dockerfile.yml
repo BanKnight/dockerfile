@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - '**/Dockerfile'
-      - '**/dockerfile.yml'
+      - '**/build_dockerfile.yml'
 
 jobs:
   node:
@@ -24,6 +24,16 @@ jobs:
         dockerFile: ./node/latest/Dockerfile
         dockerHubUser: ${{ secrets.DOCKER_USERNAME }} # docker hub userid
         dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }} # docker hub password
+    - name: build node:16
+      uses: ilteoood/docker_buildx@master
+      with:
+        publish: true
+        imageName:  ${{secrets.DOCKER_USERNAME}}/node
+        platform: linux/amd64,linux/arm64,linux/arm/v7 # 你准备构建的镜像平台
+        tag: 16
+        dockerFile: ./node/latest/Dockerfile
+        dockerHubUser: ${{ secrets.DOCKER_USERNAME }} # docker hub userid
+        dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }} # docker hub password
     - name: build node:slim
       uses: ilteoood/docker_buildx@master
       with:
@@ -31,6 +41,16 @@ jobs:
         imageName:  ${{secrets.DOCKER_USERNAME}}/node
         platform: linux/amd64,linux/arm64,linux/arm/v7 # 你准备构建的镜像平台
         tag: slim 
+        dockerFile: ./node/slim/Dockerfile
+        dockerHubUser: ${{ secrets.DOCKER_USERNAME }} # docker hub userid
+        dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }} # docker hub password
+    - name: build node:16-slim
+      uses: ilteoood/docker_buildx@master
+      with:
+        publish: true
+        imageName:  ${{secrets.DOCKER_USERNAME}}/node
+        platform: linux/amd64,linux/arm64,linux/arm/v7 # 你准备构建的镜像平台
+        tag: 16-slim 
         dockerFile: ./node/slim/Dockerfile
         dockerHubUser: ${{ secrets.DOCKER_USERNAME }} # docker hub userid
         dockerHubPassword: ${{ secrets.DOCKER_PASSWORD }} # docker hub password
